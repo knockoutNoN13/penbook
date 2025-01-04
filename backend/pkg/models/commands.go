@@ -7,3 +7,8 @@ type Command struct {
 	Template   string   `bson:"template"`
 	Args       []string `bson:"args"`
 }
+
+type GetAllResponse struct {
+	Id   string `bson:"_id,omitempty" json:"id"`
+	Name string `bson:"name" json:"name"`
+}

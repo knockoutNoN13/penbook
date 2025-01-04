@@ -3,6 +3,7 @@ package handler
 import (
 	"pentbook/pkg/service"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +17,11 @@ func NewHandler(services *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
-
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:  []string{"http://127.0.0.1:8080"}, // Разрешенные источники
+		AllowMethods:  []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		ExposeHeaders: []string{"Content-Length"},
+	}))
 	// ================== AUTH API GROUP =========================
 	auth := router.Group("/auth")
 	{

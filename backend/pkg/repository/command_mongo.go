@@ -33,10 +33,10 @@ func (r *CommandMongo) Create(command models.Command) (string, error) {
 	return id, nil
 }
 
-func (r *CommandMongo) GetAll() ([]string, error) {
+func (r *CommandMongo) GetAll() ([]models.GetAllResponse, error) {
 	collection := r.db.Collection(commandsCollection)
 
-	var commands []string
+	var commands []models.GetAllResponse
 	commands, err := GetAll(collection)
 	if err != nil {
 		return nil, err
@@ -80,9 +80,9 @@ func (r *CommandMongo) Delete(commandId string) error {
 	return nil
 }
 
-func GetAll(collection *mongo.Collection) ([]string, error) {
+func GetAll(collection *mongo.Collection) ([]models.GetAllResponse, error) {
 
-	var commandsList []string
+	var commandsList []models.GetAllResponse
 	cur, err := collection.Find(context.TODO(), bson.D{{}})
 
 	if err != nil {
@@ -95,8 +95,10 @@ func GetAll(collection *mongo.Collection) ([]string, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		commandsList = append(commandsList, item.Name)
+		var temp models.GetAllResponse
+		temp.Id = item.Id
+		temp.Name = item.Name
+		commandsList = append(commandsList, temp)
 	}
 
 	if err := cur.Err(); err != nil {

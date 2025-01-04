@@ -8,7 +8,7 @@ import (
 )
 
 type getAllCommandsResponse struct {
-	Data []string `json:"data"`
+	Data []models.GetAllResponse `json:"data"`
 }
 
 func (h *Handler) getAllCommands(c *gin.Context) {

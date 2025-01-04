@@ -15,7 +15,7 @@ type Authorization interface {
 
 type Command interface {
 	Create(models.Command) (string, error)
-	GetAll() ([]string, error)
+	GetAll() ([]models.GetAllResponse, error)
 	GetById(commandId string) (models.Command, error)
 	Delete(commandId string) error
 }

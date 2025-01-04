@@ -17,7 +17,7 @@ func (s *CommandService) Create(command models.Command) (string, error) {
 	return s.repo.Create(command)
 }
 
-func (s *CommandService) GetAll() ([]string, error) {
+func (s *CommandService) GetAll() ([]models.GetAllResponse, error) {
 	return s.repo.GetAll()
 }
 
